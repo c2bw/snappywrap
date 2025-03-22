@@ -1,4 +1,4 @@
-defmodule Snappy.FramingTest do
+defmodule Snappywrap.FramingTest do
   use ExUnit.Case
 
   test "encode outputs expected binary" do
@@ -7,16 +7,16 @@ defmodule Snappy.FramingTest do
         100>>
 
     data = "hello world"
-    wrapped = Snappy.Framing.encode(data)
+    wrapped = Snappywrap.Framing.encode(data)
     assert wrapped == expected_output
   end
 
   test "decompress wrapped" do
     data = "hello world"
-    wrapped = Snappy.Framing.encode(data)
+    wrapped = Snappywrap.Framing.encode(data)
     assert {:ok, ^data} = Snappyrex.decompress(wrapped, format: :frame)
     data = :crypto.strong_rand_bytes(10_000_000)
-    wrapped = Snappy.Framing.encode(data)
+    wrapped = Snappywrap.Framing.encode(data)
     assert {:ok, ^data} = Snappyrex.decompress(wrapped, format: :frame)
   end
 end

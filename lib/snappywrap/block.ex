@@ -1,4 +1,4 @@
-defmodule Snappy.Block do
+defmodule Snappywrap.Block do
   @moduledoc """
   Store uncompressed data in Snappy block format.
 
@@ -52,7 +52,7 @@ defmodule Snappy.Block do
 
   defp to_binary_literals(data) do
     data
-    |> Snappy.Helper.chunk_binary(@max_literal_length)
+    |> Snappywrap.Helper.chunk_binary(@max_literal_length)
     |> Enum.map(fn chunk -> build_literal(chunk) end)
     |> Enum.join()
   end

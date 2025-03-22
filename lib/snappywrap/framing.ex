@@ -1,4 +1,4 @@
-defmodule Snappy.Framing do
+defmodule Snappywrap.Framing do
   @moduledoc """
   The Snappy framing format is an optional Snappy format.
 
@@ -39,7 +39,7 @@ defmodule Snappy.Framing do
   # Splits data into chunks (max size: 65536 bytes) and encodes each as a uncompressed chunk
   defp split_and_encode_chunks(data) do
     data
-    |> Snappy.Helper.chunk_binary(@uncompressed_chunk_max_size)
+    |> Snappywrap.Helper.chunk_binary(@uncompressed_chunk_max_size)
     |> Enum.map(fn chunk -> build_chunk(@uncompressed_chunk_identifier, chunk) end)
     |> Enum.join()
   end
@@ -47,7 +47,7 @@ defmodule Snappy.Framing do
   # Builds a Snappy chunk with the given type and data
   defp build_chunk(chunk_type, chunk_data) do
     chunk_size = byte_size(chunk_data) + @crc_length
-    crc = Snappy.Helper.crc(chunk_data)
+    crc = Snappywrap.Helper.crc(chunk_data)
     # Chunk format: 1 byte type + 3 bytes length + 4 bytes CRC + data
     <<chunk_type::8, chunk_size::little-size(24), crc::little-size(32), chunk_data::binary>>
   end

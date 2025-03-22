@@ -1,11 +1,11 @@
-defmodule Snappy.BlockTest do
+defmodule Snappywrap.BlockTest do
   use ExUnit.Case
 
   test "encode outputs expected binary" do
     expected_output = <<11, 40, 104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100>>
 
     data = "hello world"
-    wrapped = Snappy.Block.encode(data)
+    wrapped = Snappywrap.Block.encode(data)
     assert wrapped == expected_output
   end
 
@@ -16,7 +16,7 @@ defmodule Snappy.BlockTest do
         32, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 32, 44, 46, 91, 93, 123, 125, 32, 39, 195, 172>>
 
     data = "a longer string with over the 7bit limit data +-*/ 1234567890 ,.[]{} 'ì"
-    wrapped = Snappy.Block.encode(data)
+    wrapped = Snappywrap.Block.encode(data)
     assert wrapped == expected_output
   end
 
@@ -45,16 +45,16 @@ defmodule Snappy.BlockTest do
     data =
       "hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2hello123test2"
 
-    wrapped = Snappy.Block.encode(data)
+    wrapped = Snappywrap.Block.encode(data)
     assert wrapped == expected_output
   end
 
   test "decompress wrapped" do
     data = "hello world"
-    wrapped = Snappy.Block.encode(data)
+    wrapped = Snappywrap.Block.encode(data)
     assert {:ok, ^data} = Snappyrex.decompress(wrapped, format: :raw)
     data = :crypto.strong_rand_bytes(10_000_000)
-    wrapped = Snappy.Block.encode(data)
+    wrapped = Snappywrap.Block.encode(data)
     assert {:ok, ^data} = Snappyrex.decompress(wrapped, format: :raw)
   end
 end

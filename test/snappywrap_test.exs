@@ -10,7 +10,7 @@ defmodule SnappywrapTest do
   @tag :skip
   test "wrap returns error when data exceeds max size" do
     # Create data larger than input_max_bytes
-    large_data = String.duplicate("a", Snappy.Helper.input_max_bytes() + 1)
+    large_data = String.duplicate("a", Snappywrap.Helper.input_max_bytes() + 1)
     assert {:error, message} = Snappywrap.wrap(large_data)
     assert message =~ "Input exceeds the maximum allowed size"
     assert {:error, message} = Snappywrap.wrap_framed(large_data)

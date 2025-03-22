@@ -1,4 +1,4 @@
-defmodule Snappy.Helper do
+defmodule Snappywrap.Helper do
   import Bitwise
   @moduledoc false
 

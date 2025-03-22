@@ -13,16 +13,16 @@ defmodule Snappywrap do
    Wrap the data in Snappy `framing` format.
   """
   @spec wrap_framed(binary) :: {:ok, binary} | {:error, String.t()}
-  def wrap_framed(data) when is_binary(data), do: data |> maybe_encode(&Snappy.Framing.encode/1)
+  def wrap_framed(data) when is_binary(data), do: data |> maybe_encode(&Snappywrap.Framing.encode/1)
 
   @doc """
    Wrap the data in Snappy `block` format.
   """
   @spec wrap(binary) :: {:ok, binary} | {:error, String.t()}
-  def wrap(data) when is_binary(data), do: data |> maybe_encode(&Snappy.Block.encode/1)
+  def wrap(data) when is_binary(data), do: data |> maybe_encode(&Snappywrap.Block.encode/1)
 
   defp maybe_encode(data, encode_fn) do
-    max_bytes = Snappy.Helper.input_max_bytes()
+    max_bytes = Snappywrap.Helper.input_max_bytes()
 
     data
     |> byte_size()
